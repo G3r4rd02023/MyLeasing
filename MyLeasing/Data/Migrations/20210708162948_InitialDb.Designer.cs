@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyLeasing.Data;
 
 namespace MyLeasing.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210708162948_InitialDb")]
+    partial class InitialDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,80 +221,6 @@ namespace MyLeasing.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MyLeasing.Data.Entities.Contract", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("LesseeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Remarks")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LesseeId");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("Contracts");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.Lessee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Document")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Lessees");
-                });
-
             modelBuilder.Entity("MyLeasing.Data.Entities.Owner", b =>
                 {
                     b.Property<int>("Id")
@@ -322,96 +250,6 @@ namespace MyLeasing.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Owners");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.Property", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<bool>("HasParkingLot")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Neighborhood")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("PropertyTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Remarks")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Rooms")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SquareMeters")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Stratum")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("PropertyTypeId");
-
-                    b.ToTable("Properties");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.PropertyImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PropertyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PropertyId");
-
-                    b.ToTable("PropertyImages");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.PropertyType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PropertyTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -463,75 +301,6 @@ namespace MyLeasing.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.Contract", b =>
-                {
-                    b.HasOne("MyLeasing.Data.Entities.Lessee", "Lessee")
-                        .WithMany("Contracts")
-                        .HasForeignKey("LesseeId");
-
-                    b.HasOne("MyLeasing.Data.Entities.Owner", "Owner")
-                        .WithMany("Contracts")
-                        .HasForeignKey("OwnerId");
-
-                    b.HasOne("MyLeasing.Data.Entities.Property", "Property")
-                        .WithMany("Contracts")
-                        .HasForeignKey("PropertyId");
-
-                    b.Navigation("Lessee");
-
-                    b.Navigation("Owner");
-
-                    b.Navigation("Property");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.Property", b =>
-                {
-                    b.HasOne("MyLeasing.Data.Entities.Owner", "Owner")
-                        .WithMany("Properties")
-                        .HasForeignKey("OwnerId");
-
-                    b.HasOne("MyLeasing.Data.Entities.PropertyType", "PropertyType")
-                        .WithMany("Properties")
-                        .HasForeignKey("PropertyTypeId");
-
-                    b.Navigation("Owner");
-
-                    b.Navigation("PropertyType");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.PropertyImage", b =>
-                {
-                    b.HasOne("MyLeasing.Data.Entities.Property", "Property")
-                        .WithMany("PropertyImages")
-                        .HasForeignKey("PropertyId");
-
-                    b.Navigation("Property");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.Lessee", b =>
-                {
-                    b.Navigation("Contracts");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.Owner", b =>
-                {
-                    b.Navigation("Contracts");
-
-                    b.Navigation("Properties");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.Property", b =>
-                {
-                    b.Navigation("Contracts");
-
-                    b.Navigation("PropertyImages");
-                });
-
-            modelBuilder.Entity("MyLeasing.Data.Entities.PropertyType", b =>
-                {
-                    b.Navigation("Properties");
                 });
 #pragma warning restore 612, 618
         }
