@@ -22,8 +22,17 @@ namespace MyLeasing.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string LastName { get; set; }
 
+        [Display(Name = "Dirección")]
         [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
         public string Address { get; set; }
+
+        [Display(Name = "Telefono")]
+        [MaxLength(20, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
+        public string FixedPhone { get; set; }
+
+        [Display(Name = "Celular")]
+        [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
+        public string CellPhone { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
 
